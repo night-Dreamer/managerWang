@@ -1,0 +1,17 @@
+{{define "content"}}
+<form action="http://localhost:8000/add" method="post">
+    <div>
+        <p>工号</p>
+        <input type="text" name="number">
+    </div>
+    <div>
+        <p>用户名</p>
+        <input type="text" name="name">
+    </div>
+    <div>
+        <p>初始密码</p>
+        <input type="text" name="password">
+    </div>
+    <button type="submit">确定</button>
+</form>
+{{end}}

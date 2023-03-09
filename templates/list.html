@@ -1,0 +1,49 @@
+{{ define "content"}}
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>工号</th>
+                <th>姓名</th>
+                <th>角色</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range $i, $c := . }}
+            <tr>
+                <td>{{$i | add 1}}</td>
+                <td>{{ $c.Id }}</td>
+                <td>{{ $c.Key }}</td>
+                <td>{{ $c.Role }}</td>
+                <td>
+                    <a href="http://localhost:8000/edit/?id={{ $c.Id }}">编辑</a>
+                    <a href="javascript:void(0)" data-id="{{ $c.Id }}" class="delete">删除</a>
+                </td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(() =>{
+      $(".delete").bind("click", (event) => {
+        if(confirm("确认删除?")){
+            $.ajax({
+                url: `/delete/?id=${event.target.dataset.id}`,
+                success : function() {
+                    alert("删除成功");
+                    // 删除成功后刷新页面
+                     window.location.reload();
+                },
+                error : function(){
+                    alert("无权限!")
+                }
+            })
+        }
+      });
+    });
+</script>
+{{end}}
